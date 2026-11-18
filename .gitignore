@@ -7,7 +7,7 @@ env/
 venv/
 .venv/
 ENV/
-.env
+!.env
 .env.local
 *.db
 *.sqlite
