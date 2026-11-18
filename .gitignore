@@ -12,6 +12,7 @@ ENV/
 *.db
 *.sqlite
 *.sqlite3
+!book_tracker.db
 .pytest_cache/
 .coverage
 htmlcov/
