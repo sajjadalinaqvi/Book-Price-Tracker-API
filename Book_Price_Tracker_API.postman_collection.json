@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "b3e0e7a2-94b1-4d1a-8bb8-1c9f87d4a102",
+		"name": "Book Price Tracker API",
+		"description": "Postman Collection for Book Price Tracker API built with FastAPI, PostgreSQL, and BeautifulSoup.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Check if API service is running."
+			},
+			"response": []
+		},
+		{
+			"name": "List Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				},
+				"description": "Retrieve books with default pagination."
+			},
+			"response": []
+		},
+		{
+			"name": "List Books (Pagination)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?skip=0&limit=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "0",
+							"description": "Number of books to skip"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "Number of books to return"
+						}
+					]
+				},
+				"description": "Retrieve books with custom skip and limit pagination."
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Books by Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?category=Travel",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Travel",
+							"description": "Category name (case-insensitive)"
+						}
+					]
+				},
+				"description": "Filter books by category (e.g. Travel, Mystery, Fiction)."
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Books by Price Range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?min_price=10&max_price=30",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "min_price",
+							"value": "10",
+							"description": "Minimum price"
+						},
+						{
+							"key": "max_price",
+							"value": "30",
+							"description": "Maximum price"
+						}
+					]
+				},
+				"description": "Filter books by price range."
+			},
+			"response": []
+		},
+		{
+			"name": "Combined Filters (Category + Price + Pagination)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?category=Travel&min_price=10&max_price=50&skip=0&limit=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Travel"
+						},
+						{
+							"key": "min_price",
+							"value": "10"
+						},
+						{
+							"key": "max_price",
+							"value": "50"
+						},
+						{
+							"key": "skip",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				},
+				"description": "Filter books with combined category, price range, and pagination parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"1"
+					]
+				},
+				"description": "Retrieve details of a single book by ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book by ID (Not Found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/99999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						"99999"
+					]
+				},
+				"description": "Demonstrates 404 response for nonexistent book ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Trigger Scraper",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/scrape?mode=category&max_pages=2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"scrape"
+					],
+					"query": [
+						{
+							"key": "mode",
+							"value": "category",
+							"description": "Scraping mode ('category' or 'catalogue')"
+						},
+						{
+							"key": "max_pages",
+							"value": "2",
+							"description": "Optional maximum number of pages to scrape"
+						}
+					]
+				},
+				"description": "Trigger the scraper to fetch books from books.toscrape.com and update the database."
+			},
+			"response": []
+		}
+	]
+}
